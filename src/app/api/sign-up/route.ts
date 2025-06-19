@@ -1,7 +1,6 @@
 import dbConnect from "@/lib/dbConnect";
 import { sendVerfivationEmail } from "@/helpers/sendVerificationEmail";
-import bcrypt, { hash } from "bcryptjs";
-import { ApiResponse } from "@/types/ApiResponse";
+import bcrypt from "bcryptjs";
 import UserModel from "@/model/User";
 
 export async function POST(request: Request){
@@ -73,7 +72,7 @@ export async function POST(request: Request){
        
        return Response.json({
         sucess: false,
-        message: 'error registering user'
+        message: error instanceof Error ? error.message : "Unknown error"
        },
        {
         status: 500
