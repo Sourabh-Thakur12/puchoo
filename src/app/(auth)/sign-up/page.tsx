@@ -101,7 +101,7 @@ const page = () => {
 
               </FormControl>
                 {isCheckingUsername && <Loader2 className='animate-spin' />}
-                <p className={`text-sm ${usernameMessage === "User is abvailable" ? 'text-green-500' : 'text-red-500'}`}>test</p>
+                <p className={`text-sm ${usernameMessage === "User is abvailable" ? 'text-green-500' : 'text-red-500'}`}>test {usernameMessage}</p>
               <FormDescription>
               </FormDescription>
               <FormMessage />
