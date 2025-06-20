@@ -7,7 +7,7 @@ export const usernameValidation = z
     .regex(/^[a-zA-Z0-9_]+$/, "Invalid Username")
 
 
-export const emailValidation = z.object({
+export const signUpSchema = z.object({
         username: usernameValidation,
         email : z.string().email({message: "Invalid email"}),
         password: z.string().min(6, "must be atleast 6 char")

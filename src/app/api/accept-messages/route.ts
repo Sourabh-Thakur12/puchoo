@@ -59,23 +59,38 @@ export async function GET(request:Request) {
     const session = await getServerSession(authOptions)
     const user:User = session?.user as User
 
+try {
+    
+        if(!session || !session.user){
+                return Response.json({
+                sucess: false,
+                message: 'Not Authenticated' 
+             }, {status: 401})
+        }
+        const userId = user._id;
+    
+        const founduser = await UserModel.findById(userId)
+    
+        if(!founduser){
+            
+                return Response.json({
+                sucess: false,
+                message: 'User Not Found' 
+             }, {status: 404})
+        }
 
-    if(!session || !session.user){
+
             return Response.json({
             sucess: false,
-            message: 'Not Authenticated' 
-         }, {status: 401})
-    }
-    const userId = user._id;
+            isAcceptingMessage: founduser.isAcceptingMessage
+         }, {status: 200})}
+         catch{
+        console.log("error getting messages")
 
-    const founduser = await UserModel.findById(userId)
-
-    if(!founduser){
-        
-            return Response.json({
+        return Response.json({
             sucess: false,
-            message: 'User Not Found' 
-         }, {status: 404})
-    }
+            message: 'error getting messages' 
+         }, {status: 500})
+         }
    
 }
